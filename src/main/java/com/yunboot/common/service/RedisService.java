@@ -4,54 +4,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.GeoOperations;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.SetOperations;
-import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
-import com.yunboot.common.config.YunBootRedisTemplate;
-
 @Service
-public class RedisService
+public class RedisService extends AbstractRedisService
 {
-
-    @Autowired
-    private YunBootRedisTemplate redisTemplate;
-
-    private ValueOperations<String, Object> getValueOps()
-    {
-        return redisTemplate.opsForValue();
-    }
-
-    private ListOperations<String, Object> getListOps()
-    {
-        return redisTemplate.opsForList();
-    }
-
-    private SetOperations<String, Object> getSetOps()
-    {
-        return redisTemplate.opsForSet();
-    }
-
-    private HashOperations<String, Object, Object> getHashOps()
-    {
-        return redisTemplate.opsForHash();
-    }
-
-    private ZSetOperations<String, Object> getZsetOps()
-    {
-        return redisTemplate.opsForZSet();
-    }
-
-    private GeoOperations<String, Object> getGeoOps()
-    {
-        return redisTemplate.opsForGeo();
-    }
-
     public boolean set(final String key, Object value)
     {
         try

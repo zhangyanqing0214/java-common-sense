@@ -1,14 +1,8 @@
 package com.yunboot.common.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.GeoOperations;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.SetOperations;
-import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.data.redis.core.ZSetOperations;
-
 import com.yunboot.common.config.YunBootRedisTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.*;
 
 public abstract class AbstractRedisService
 {

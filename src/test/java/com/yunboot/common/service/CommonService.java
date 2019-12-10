@@ -1,21 +1,17 @@
 package com.yunboot.common.service;
 
-import java.util.List;
-
-import org.assertj.core.util.Lists;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.yunboot.common.BaseTests;
-import com.yunboot.common.config.RedisConfig;
-import com.yunboot.common.config.YunBootJedisPoolConfig;
-import com.yunboot.common.config.YunBootRedisConnectionFactory;
-import com.yunboot.common.config.YunBootRedisSentinelConfiguration;
-import com.yunboot.common.config.YunBootRedisTemplate;
+import com.yunboot.common.config.*;
 import com.yunboot.common.enums.CrmServiceEnum;
 import com.yunboot.common.exception.CommonException;
-
 import lombok.extern.java.Log;
+import org.assertj.core.util.Lists;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * [简要描述]:service层单元测试
@@ -28,6 +24,8 @@ import lombok.extern.java.Log;
 @Log
 public class CommonService extends BaseTests
 {
+
+    private static Logger logger = LoggerFactory.getLogger(CommonService.class);
 
     @Autowired
     private RedisService redisService;
@@ -52,8 +50,7 @@ public class CommonService extends BaseTests
         RedisConfig redisConfig = new RedisConfig();
         YunBootJedisPoolConfig jedisPoolConfig = redisConfig.buildYunBootJedisPoolConfig();
         YunBootRedisSentinelConfiguration sentinelConfiguration = redisConfig.bulidYunBootRedisSentinelConfiguration();
-        YunBootRedisConnectionFactory connectionFactory = redisConfig
-                .bulidYunBootRedisConnectionFactory(sentinelConfiguration, jedisPoolConfig);
+        YunBootRedisConnectionFactory connectionFactory = redisConfig.bulidYunBootRedisConnectionFactory(sentinelConfiguration, jedisPoolConfig);
         connectionFactory.afterPropertiesSet();
         YunBootRedisTemplate redisTemplate = redisConfig.bulidYunBootRedisTemplate(connectionFactory);
         redisTemplate.afterPropertiesSet();
@@ -90,5 +87,19 @@ public class CommonService extends BaseTests
         System.out.println(this.redisService.zsetGet("dddd", 0, redisService.zSize(zset_key)));
         System.out.println(this.redisService.zSize("fdfsdf"));
 
+    }
+
+    @Test
+    public void testIncr()
+    {
+        System.out.println(redisService.increase("orderNo", 2));
+    }
+
+    @Test
+    public void testM()
+    {
+        System.out.println(redisService.lock("12232", "121", 5000));
+        System.out.println(redisService.getLock("12232"));
+        System.out.println(redisService.unlock("12232", "121"));
     }
 }

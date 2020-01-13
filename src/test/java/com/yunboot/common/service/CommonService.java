@@ -99,7 +99,10 @@ public class CommonService extends BaseTests
     public void testM()
     {
         System.out.println(redisService.lock("12232", "121", 5000));
-        System.out.println(redisService.getLock("12232"));
+        System.out.println(redisService.getLockValue("12232"));
         System.out.println(redisService.unlock("12232", "121"));
     }
+
 }
+
+

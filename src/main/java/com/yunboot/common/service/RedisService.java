@@ -1,6 +1,5 @@
 package com.yunboot.common.service;
 
-import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisCallback;
@@ -168,7 +167,7 @@ public class RedisService extends AbstractRedisService
         return false;
     }
 
-    public String getLock(String key)
+    public String getLockValue(String key)
     {
         try
         {
@@ -209,7 +208,6 @@ public class RedisService extends AbstractRedisService
                 {
                     return (Long) ((JedisCluster) nativeConnection).eval(UNLOCK_LUA, keys, args);
                 }
-
                 // 单机模式
                 else if (nativeConnection instanceof Jedis)
                 {

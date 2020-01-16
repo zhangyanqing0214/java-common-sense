@@ -2,6 +2,8 @@ package com.yunboot.common.service;
 
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.lang.Snowflake;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ZipUtil;
 import org.springframework.util.StringUtils;
 
@@ -39,11 +41,19 @@ public class ToolsTest
         //                0, //y坐标修正值。 默认在中间，偏移量相对于中间偏移
         //                0.8f);
         //        ImgUtil.gray(FileUtil.file("H:/1002266.jpg"), FileUtil.file("H:\\1002266-gray.jpg"));
-        String dirs = "F:/360downloads/wpcache/srvsetwp/";
-        String dest = "H:/dest/";
-        long start = System.currentTimeMillis();
-        zipImg(dirs, null, 0.8f, "H:/dest.zip");
-        System.out.println(System.currentTimeMillis() - start);
+        //        String dirs = "F:/360downloads/wpcache/srvsetwp/";
+        //        String dest = "H:/dest/";
+        //        long start = System.currentTimeMillis();
+        //        zipImg(dirs, dest, 0.8f, "H:/dest.zip");
+        //        System.out.println(System.currentTimeMillis() - start);
+        System.out.println(IdUtil.randomUUID());
+        System.out.println(IdUtil.simpleUUID());
+        System.out.println(IdUtil.objectId());
+        Snowflake snowflake = IdUtil.createSnowflake(1, 1);
+        for (int i = 0; i < 10; i++)
+        {
+            System.out.println(snowflake.nextIdStr());
+        }
     }
 
     public static void zipImg(String dirs, String dest, float scale, String destZipPath)

@@ -1,9 +1,13 @@
 package com.yunboot.common.service;
 
+import cn.hutool.json.JSONUtil;
 import com.yunboot.common.BaseTests;
 import com.yunboot.common.config.*;
+import com.yunboot.common.converter.Converter;
 import com.yunboot.common.enums.CrmServiceEnum;
 import com.yunboot.common.exception.CommonException;
+import com.yunboot.common.vo.User;
+import com.yunboot.common.vo.UserDto;
 import lombok.extern.java.Log;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
@@ -11,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +34,8 @@ public class CommonService extends BaseTests
 
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private Converter converter;
 
     @Test
     public void sayHi()
@@ -103,6 +110,39 @@ public class CommonService extends BaseTests
         System.out.println(redisService.unlock("12232", "121"));
     }
 
+    @Test
+    public void testConverter()
+    {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 10000; i++)
+        {
+            User user = new User("111", "qqq");
+            UserDto user2 = (UserDto) converter.converter(user, UserDto.class);
+            System.out.println(JSONUtil.toJsonStr(user2));
+            //UserDto user2 = Convert.convert(UserDto.class, user);
+            //System.out.println(JSONUtil.toJsonStr(user2));
+        }
+        System.out.println("时间：" + (System.currentTimeMillis() - start));
+    }
+
+    @Test
+    public void testConverterToList()
+    {
+        long start = System.currentTimeMillis();
+        List<User> list = new ArrayList<>();
+        for (int i = 0; i < 10000; i++)
+        {
+            User user = new User("1" + i, "aaa");
+            list.add(user);
+        }
+        List<UserDto> result = converter.converterToList(list, UserDto.class);
+        //List<UserDto> result = Convert.toList(UserDto.class, list);
+        //        for (UserDto user2 : result)
+        //        {
+        //            System.out.println(JSONUtil.toJsonStr(user2));
+        //        }
+        System.out.println("时间：" + (System.currentTimeMillis() - start));
+    }
 }
 
 

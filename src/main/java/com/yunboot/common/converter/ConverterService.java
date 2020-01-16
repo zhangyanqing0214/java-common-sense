@@ -90,6 +90,10 @@ public class ConverterService<T, V> implements Converter<T, V>
     public List<V> converterToList(List<T> sources, Class<V> elementType, CopyOptions copyOptions, String... ignoreProperties)
     {
         List<V> list = new ArrayList<>();
+        if (sources == null || sources.isEmpty())
+        {
+            return list;
+        }
         for (T source : sources)
         {
             list.add(converter(source, elementType, copyOptions, ignoreProperties));

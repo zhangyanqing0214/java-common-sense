@@ -1,5 +1,6 @@
 package com.yunboot.common.controller;
 
+import com.yunboot.common.limit.annotation.AccessLimit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ public class HomeController
     @Autowired
     private RedisService redisService;
 
+    @AccessLimit(times = 4)
     @GetMapping("/say")
     @Log(value = "测试接口")
     public ResponseJson sayHi(@RequestParam("name") String name)

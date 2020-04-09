@@ -1,4 +1,4 @@
-package com.yunboot.common.limit;
+package com.yunboot.common.limit.utils;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
